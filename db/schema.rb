@@ -10,9 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_11_103950) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_11_113244) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.string "content"
+    t.bigint "gallery_id", null: false
+    t.bigint "user_id", null: false
+    t.string "imageable_type", null: false
+    t.bigint "imageable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gallery_id"], name: "index_comments_on_gallery_id"
+    t.index ["imageable_type", "imageable_id"], name: "index_comments_on_imageable"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "galleries", force: :cascade do |t|
+    t.string "photo"
+    t.string "title"
+    t.string "description"
+    t.datetime "when_went"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_galleries_on_user_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.text "url"
+    t.string "context"
+    t.string "imageable_type", null: false
+    t.bigint "imageable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_103950) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "galleries"
+  add_foreign_key "comments", "users"
+  add_foreign_key "galleries", "users"
 end
