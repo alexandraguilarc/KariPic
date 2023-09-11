@@ -1,27 +1,16 @@
-<div id="<%= dom_id gallery %>">
-  <p>
-    <strong>Photo:</strong>
-    <%= gallery.photo %>
-  </p>
-
-  <p>
-    <strong>Title:</strong>
-    <%= gallery.title %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= gallery.description %>
-  </p>
-
-  <p>
-    <strong>When went:</strong>
-    <%= gallery.when_went %>
-  </p>
-
-  <p>
-    <strong>User:</strong>
-    <%= gallery.user_id %>
-  </p>
-
+<div class="col-3">
+  <div class="card">
+    <%= image_tag gallery.images[0], class: 'card-img-top' %>
+     <%#  <div class="card-body">
+        <%# <div class="owner-avatar">
+          <%= image_tag gallery.user.images[0].url, class: 'rounded-circle w-100' %>
+        <%# </div>  %> 
+        <h5 class="card-title"><%= gallery.title %></h5>
+          <p class="card-text">
+            <strong>Description</strong><%= gallery.description %><br>
+            <strong>When went::</strong><%= gallery.when_went %><br>
+            <strong>User:</strong><%= gallery.user_id %>
+          </p>
+      </div>
+    </div>
 </div>

@@ -6,7 +6,6 @@ class User < ApplicationRecord
 
   has_many :galleries
   has_many :comments
-  has_many :images, as: :imageable
+  has_many_attached :images
 
-  accepts_nested_attributes_for :images
 end
